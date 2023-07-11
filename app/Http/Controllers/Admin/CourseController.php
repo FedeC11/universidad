@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\StudentCourse;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 
@@ -14,9 +15,11 @@ class CourseController extends Controller
      */
     public function index()
     {
+        $studentcourses =StudentCourse::all();
         $teachers =Teacher::all();
         $courses=Course::all();
-        return view('admin.clases',compact('teachers','courses'));
+        $suma=0;
+        return view('admin.clases',compact('teachers','courses','studentcourses','suma'));
     }
 
     /**
@@ -32,9 +35,10 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
+        
         $nuevaclase = new Course();
-        $nuevaclase->name = $request->input('nombre').' '.$request->input('apellido');
-        $nuevaclase->email = $request->input('maestro');
+        $nuevaclase->name_class = $request->input('nombre').' '.$request->input('apellido');
+        $nuevaclase->id_teacher_fk = $request->input('asignacion');
         
         // Agrega otros campos y sus valores
         $nuevaclase->save();
@@ -62,7 +66,13 @@ class CourseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return $request;
+        
+        $curso= Course::findOrFail($id);
+        $curso->name_class = $request->input('nombre').' '.$request->input('apellido');
+        $curso->id_teacher_fk = $request->input('asignacion');
+        $curso->save();
+        return redirect()->route('clases')->with('success', 'Registro actualizado correctamente'); 
+        
     }
 
     /**
@@ -70,6 +80,8 @@ class CourseController extends Controller
      */
     public function destroy(string $id)
     {
-        return $id;
+        $registro = Course::findOrFail($id);
+        $registro->delete();
+        return redirect()->route('clases')->with('success', 'Registro borrado correctamente');
     }
 }

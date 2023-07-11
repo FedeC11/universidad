@@ -42,11 +42,11 @@ Route::put('alumnos/add', [StudentController::class,'store'])
 Route::get('/clases',[CourseController::class,'index'])
 ->middleware(['auth','verified'])->name('clases');
 
-Route::put('clases/update{id}', [StudentController::class,'update'])
+Route::put('clases/update{id}', [CourseController::class,'update'])
 ->middleware(['auth','verified'])->name('clases.update');
 
-Route::get('clases/destroy{id}', [StudentController::class,'destroy'])
+Route::get('clases/destroy{id}', [CourseController::class,'destroy'])
 ->middleware(['auth','verified'])->name('clases.destroy');
 
-Route::put('clases/add', [StudentController::class,'store'])
+Route::put('clases/add', [CourseController::class,'store'])
 ->middleware(['auth','verified'])->name('clases.store');

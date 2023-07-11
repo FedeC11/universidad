@@ -41,10 +41,20 @@
               <label for="exampleInputEmail1" class="form-label">Nombre de la materia</label>
               <input type="text" class="form-control" name="nombre" value=" ">
             </div>
-            <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">Maestro disponible</label>
-              <input type="number" class="form-control"  name="maestro" value=" ">
-            </div>
+            <label for="exampleInputEmail2" class="form-label">profesores disponibles</label>
+            <select class="form-select mb-3 " aria-label="Default select example" name="asignacion">
+              <option selected>sin asignar</option>
+              @foreach ($courses as $course)
+              @foreach ($teachers as $teacher)
+              @if ($teacher->id == $course->id_teacher_fk)
+                  
+              @else
+              <option value="{{$teacher->id}}">{{$teacher->nombre}}</option>
+              @endif
+              @endforeach
+              @endforeach
+              
+            </select>
             
           </div>
           <div class="modal-footer">
@@ -52,10 +62,6 @@
             <button type="submit" class="btn btn-success">Agregar Cambios</button>
           </div>
         </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Guardar cambios</button>
         </div>
 @stop
 
@@ -85,19 +91,66 @@
                                     @if ($course->id_teacher_fk == $teacher->id)
                                     {{ $teacher->nombre .' '. $teacher->apellido }}
                                     @else
-                                        sin asignacion
+                                        
                                     @endif
                                 @endforeach
                             </td>
-                            <td>4</td>
+                            <td>
+                              
+                              @foreach ($studentcourses as $studentcourse)
+                                  @if ($course->id == $studentcourse->id_course_fk)
+                                      {{$suma=$suma+1;}}
+                                  @endif
+                              @endforeach
+                            </td>
                             <td><div class="btn-group">
-                                <a href="{{route("clases")}}" class="btn btn-success">
+                                <button class="btn btn-success" data-toggle="modal" data-target="#myModal{{$course->id}}">
                                     <i class="far fa-edit"></i> Editar
-                                  </a><button class="btn btn-danger">
+                                  </button><button class="btn btn-danger">
                                     <i class="fas fa-trash"></i> Borrar
                                   </button>
                             </div></td>
                         </tr>
+                        <div class="modal fade" id="myModal{{$course->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">Editar Clases</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                        <div class="modal-body" >
+                          <form action="{{route('clases.update',$course->id)}}" method="POST">
+                            @csrf
+                            @method('PUT')
+                
+                            <div class="mb-3">
+                              <label for="exampleInputEmail1" class="form-label">Nombre de la materia</label>
+                              <input type="text" class="form-control" name="nombre" value=" ">
+                            </div>
+                            <label for="exampleInputEmail2" class="form-label">profesores disponibles</label>
+                            <select class="form-select mb-3 " aria-label="Default select example" name="asignacion">
+                              <option selected>sin asignar</option>
+                              @foreach ($courses as $course)
+                              @foreach ($teachers as $teacher)
+                              @if ($teacher->id == $course->id_teacher_fk)
+                                  
+                              @else
+                              <option value="{{$teacher->id}}">{{$teacher->nombre}}</option>
+                              @endif
+                              @endforeach
+                              @endforeach
+                              
+                            </select>
+                            
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Cerrar</button>
+                            <button type="submit" class="btn btn-success">Agregar Cambios</button>
+                          </div>
+                        </form>
+                        </div>
                         @endforeach
                         
                     </tbody>
