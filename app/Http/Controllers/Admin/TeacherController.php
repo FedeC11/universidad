@@ -17,7 +17,7 @@ class TeacherController extends Controller
     {
         $teachers =Teacher::all();
         $courses=Course::all();
-        return view('admin.maestros',compact('teachers','courses'));
+        return view('admin/maestros',compact('teachers','courses'));
     }
 
     /**
@@ -100,8 +100,13 @@ class TeacherController extends Controller
      */
     public function destroy(string $id)
     {
+        
         $registro = Teacher::findOrFail($id);
+        $id_usuario = $registro->id_user_fk;
+        $registroUsuario=User::findOrFail($id_usuario);
         $registro->delete();
+        $registroUsuario->delete();
+        
         return redirect()->route('maestros')->with('success', 'Registro borrado correctamente');
     }
 }

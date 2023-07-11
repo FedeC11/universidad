@@ -336,24 +336,46 @@ return [
             'text' => 'Permisos',
             'url'  => 'admin/permisos',
             'icon' => 'fas fa-fw fa-user',
+            'can' =>'edit permisos',
 
         ],
         [
             'text' => 'Maestros',
             'url'  => 'admin/maestros',
             'icon' => 'fas fa-fw fa-chalkboard-teacher',
+            'can' =>'editar maestros',
         ],
 
         [
             'text' => 'Alumnos',
             'url'  => 'admin/alumnos',
             'icon' => 'fas fa-fw fa-graduation-cap',
+            'can' =>'editar alumnos',
         ],
 
         [
             'text' => 'Clases',
             'url'  => 'admin/clases',
             'icon' => 'fas fa-fw fa-chalkboard',
+            'can' =>'editar clases',
+        ],
+        [
+            'text' => 'Calificar alumnos',
+            'url'  => 'admin/clases',
+            'icon' => 'fas fa-fw fa-chalkboard',
+            'can' =>'editar calificacion',
+        ],
+        [
+            'text' => 'Ver calificaciones',
+            'url'  => 'admin/clases',
+            'icon' => 'fas fa-fw fa-chalkboard',
+            'can' =>'ver calificacion',
+        ],
+        [
+            'text' => 'Administra tu clase',
+            'url'  => 'admin/clases',
+            'icon' => 'fas fa-fw fa-chalkboard',
+            'can' =>'administrar clases',
         ],
         /* ['header' => 'Menu de administracion'],
         'classes'  => 'text-bold text-center',

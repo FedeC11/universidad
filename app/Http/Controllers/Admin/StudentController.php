@@ -15,7 +15,7 @@ class StudentController extends Controller
     public function index()
     {
         $students =Student::all();
-        return view('admin.alumnos',['students'=>$students]);
+        return view('admin/alumnos',['students'=>$students]);
     }
 
     /**
@@ -97,7 +97,10 @@ class StudentController extends Controller
     public function destroy(string $id)
     {
         $registro = Student::findOrFail($id);
+        $id_usuario = $registro->id_user_fk;
+        $registroUsuario=User::findOrFail($id_usuario);
         $registro->delete();
+        $registroUsuario->delete();
         return redirect()->route('alumnos')->with('success', 'Registro borrado correctamente');
     }
 }

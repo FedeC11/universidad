@@ -9,5 +9,6 @@ class ModelHasRole extends Model
 {
     protected $table = 'model_has_roles';
     use HasFactory;
+    public $timestamps = false;
     
 }

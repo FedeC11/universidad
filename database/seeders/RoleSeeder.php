@@ -24,7 +24,7 @@ class RoleSeeder extends Seeder
         $permission = Permission::create(["name"=>"editar maestros"])->assignRole($role1);
         $permission = Permission::create(['name'=>"editar clases"])->assignRole($role1);
         $permission = Permission::create(['name'=>"editar alumnos"])->assignRole($role1);
-        $permission = Permission::create(['name'=>"editar calificacion"])->syncRoles([$role1,$role2]);
+        $permission = Permission::create(['name'=>"editar calificacion"])->syncRoles($role2);
         $permission = Permission::create(['name'=>"editar mensajes"])->syncRoles([$role1,$role2]);
         $permission = Permission::create(['name'=>"ver calificacion"])->assignRole($role3);
         $permission = Permission::create(['name'=>"administrar clases"])->assignRole($role3);

@@ -19,7 +19,7 @@ class CourseController extends Controller
         $teachers =Teacher::all();
         $courses=Course::all();
         $suma=0;
-        return view('admin.clases',compact('teachers','courses','studentcourses','suma'));
+        return view('admin/clases',compact('teachers','courses','studentcourses','suma'));
     }
 
     /**

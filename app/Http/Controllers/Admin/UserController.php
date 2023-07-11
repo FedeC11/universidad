@@ -18,7 +18,7 @@ class UserController extends Controller
         $users =User::all();
         $ModelHasRole=ModelHasRole::all();
         $roles=Role::all();
-        return view('admin.permisos',compact('users','ModelHasRole','roles'));
+        return view('admin/permisos',compact('users','ModelHasRole','roles'));
     }
 
     /**
