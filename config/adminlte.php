@@ -361,7 +361,7 @@ return [
         ],
         [
             'text' => 'Calificar alumnos',
-            'url'  => 'admin/clases',
+            'url'  => 'admin/notas',
             'icon' => 'fas fa-fw fa-chalkboard',
             'can' =>'editar calificacion',
         ],
